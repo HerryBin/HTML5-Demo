@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <script type="text/javascript" src="zepto.min.js"></script>
+    <script type="text/javascript" src="touch.js"></script>
+    <link href="animate.css" rel="stylesheet" type="text/css">
+    <style>
+        blockquote, body, button, dd, dl, dt, fieldset, form,
+        h1, h2, h3, h4, h5, h6, hr, input, legend, li, ol, p, pre, td, textarea, th, ul,img{
+            margin: 0;
+            padding: 0;
+        }
+        body{background:black;overflow:hidden}
+        ul{list-style:none}
+        .clearfix:after{display: block; content: "\20"; height: 0; clear: both; overflow: hidden; visibility: hidden;}/*ie8����*/
+
+        .img-container li img{}
+        .img-container li {overflow:hidden;float:left;}
+        .large{width:100%;height:100%;position:absolute;top:0px;left:0px;background-color:black}
+    </style>
+</head>
+<body>
+<ul class="img-container" id="container">
+
+</ul>
+<div class="large" id="large_container" style="display: none;">
+    <img id="large_img">
+</div>
+</body>
+<script>
+    var total=17;
+    var zWin=$(window),
+        wImage=$('#large_img'),
+        domImage=wImage[0],
+        cid;
+
+    var render = function(){
+        var tmpl = '';
+        var padding = 2;
+        var scrollBarWidth = 0;
+        var winWidth = $(window).width();
+        var picWidth = Math.floor((winWidth-padding*3-scrollBarWidth)/4);
+        for(var i=1;i<=total;i++){
+            var p = padding,
+                imgSrc='img/'+i+'.jpg';
+            if(i%4==1){
+                p = 0;
+            }
+            tmpl+='<li data-id="'+i+'" class="animated bounceIn" style="width:'+picWidth+'px;height:'+picWidth+'px;'+
+                'padding-left:'+p+'px;padding-top:'+padding+'px;"><canvas id="cvs_'+i+'"></canvas></li>';
+            var imageObj=new Image();
+            imageObj.index=i;
+            imageObj.onload=function () {
+                var cvs=$('#cvs_'+this.index)[0].getContext('2d');
+                cvs.width=this.width;
+                cvs.height=this.height;
+                cvs.drawImage(this,0,0);
+            };
+            imageObj.src=imgSrc;
+
+        }
+        $('#container').html(tmpl);
+    };
+    render();
+
+    var loadImg=function (id) {
+        $('#container').css({
+            height:zWin.height(),
+            'overflow':'hidden'
+        }); //隐藏最外层，列表显示层
+
+        $('#large_container').css({
+            width:zWin.width(),
+            height:zWin.height()
+        }).show();
+
+        var imgSrc='img/'+id+'.large.jpg',
+            imageObj=new Image();
+
+        imageObj.onload=function () {
+          var w=this.width,
+              h=this.height,
+              winWidth=zWin.width(),
+              winHeight=zWin.height(),
+              realw = parseInt((winWidth-winHeight*w/h)/2),
+              realh = parseInt((winHeight - winWidth*h/w)/2);
+          wImage.css('width','auto').css('height','auto');
+          wImage.css('padding-left','0px').css('padding-top','0px');
+          if(h/w>1.2){
+              wImage.attr('src',imgSrc).css('height',winHeight).css('padding-left',realw+'px');
+          }else{
+              wImage.attr('src',imgSrc).css('width',winWidth).css('padding-top',realh+'px');
+          }
+        };
+
+        imageObj.src=imgSrc;
+    };
+
+    $('#container').delegate('li','tap',function () {
+       var _id= cid=$(this).attr('data-id');
+       loadImg(_id);
+    });
+
+    $('#large_container').tap(function(){
+        $('#container').css({height:'auto','overflow':'auto'});
+        $('#large_container').hide();
+        //this.hide();
+    });
+
+    $('#large_container').swipeLeft(function(){
+        cid++;
+        if(cid>total){
+            cid=total;
+        }
+    });
+
+    $('#large_container').swipeRight(function () {
+        
+    });
+
+    $('#large_container').mousedown(function(e){
+        e.preventDefault();
+    });
+</script>
+</html>
