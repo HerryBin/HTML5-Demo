@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>phonto-swipe</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,
+    maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="apple-touch-fullscreen" content="YES">
+    <meta name="apple-mobile-web-app-status-bar- style" content="black">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #333;
+            overflow: hidden;
+            /*//position: absolute;//给一个定位置 移动环境很占内存*/
+        }
+
+        li,ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            height: 100%;//让整个图片填充画面，才能居中
+            overflow: hidden;
+        }
+
+        /*图片居中*/
+        li {
+           position: absolute;
+            display: -webkit-box;
+             -webkit-box-pack: center;
+            -webkit-box-align: center;
+            /* display: table-cell;
+             vertical-align: middle;*/
+        }
+
+        li img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        #canvas {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+
+    </style>
+</head>
+<body>
+<div id="canvas">
+
+</div>
+
+<script type="text/javascript">
+    var list = [
+        {
+            height: 950,
+            width: 800,
+            img: "../img/1.jpg"
+        },
+        {
+            height: 1187,
+            width: 900,
+            img: "../img/2.jpg"
+        },
+        {
+            height: 766,
+            width: 980,
+            img: "../img/3.jpg"
+        },
+        {
+            height: 754,
+            width: 980,
+            img: "../img/4.jpg"
+        },
+        {
+            height: 493,
+            img: "../img/5.jpg",
+            width: 750
+        },
+        {
+            height: 500,
+            img: "../img/6.jpg",
+            width: 750
+        },
+        {
+            height: 600,
+            img: "../img/7.jpg",
+            width: 400
+        }
+    ];
+
+    function Slider(opts) {
+        this.wrap = opts.dom;
+        this.list = opts.list;
+
+        this.init();
+        this.rendeDom();
+        //this.bindDom();
+    }
+
+    Slider.prototype.init = function () {
+        //获取窗口的长宽比
+        this.radio = window.innerHeight / window.innerWidth;
+        this.scaleW = window.innerWidth;//设定滑动的宽度 为一个图片的宽度
+        this.idx = 0;//设定初始值
+    };
+
+    Slider.prototype.rendeDom = function () {
+        var wrap = this.wrap,
+            data = this.list,
+            len = data.length;
+        this.outer = document.createElement('ul');
+        for (var i = 0; i < len; i++) {
+            var li = document.createElement('li'),
+                item = data[i];
+
+
+
+            li.style.width = window.innerWidth + 'px';
+            li.style.webkitTransform = 'translate3d(' + i * this.scaleW + 'px,0,0)';
+            if (item) {
+                if (item['height'] / item['width'] > this.radio) {
+                    li.innerHTML = '<img height="' + window.innerHeight + '" src="' + item['img'] + '">';
+                } else {
+                    li.innerHTML = '<img width="' + window.innerWidth + '" src="' + item['img'] + '">';
+                }
+            }
+            this.outer.appendChild(li);
+        }
+
+        this.outer.style.cssText = 'width:' + this.scaleW + 'px';
+
+        wrap.style.height = window.innerHeight + 'px';
+        wrap.appendChild(this.outer);
+    };
+
+    new Slider({
+        dom: document.getElementById('canvas'),
+        list: list
+    })
+</script>
+</body>
+</html>
