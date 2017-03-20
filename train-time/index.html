@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>列车时刻表</title>
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.3.css"/>
+    <script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile-1.4.3.js"></script>
+</head>
+<body>
+<div data-role="page" id="index">
+    <div data-role="header">
+        <h1>我是标题1</h1>
+    </div>
+    <div role="main" class="ui-content">
+        <p>this is page1</p>
+        <p><a href="#index2" data-transition="slide">go page2</a></p>
+    </div>
+    <div data-role='footer'>
+        <h1>我是页脚1</h1>
+    </div>
+</div>
+
+<div data-role="page" id="index2">
+    <div data-role="header">
+        <h1>我是标题2</h1>
+    </div>
+    <div role="main" class="ui-content">
+        <p>this is page2</p>
+        <p><a href="#index">go index1</a></p>
+    </div>
+    <div data-role='footer'>
+        <h1>我是页脚2</h1>
+    </div>
+</div>
+</body>
+<script>
+
+    $(document).on('pagebeforecreate',function(){
+        console.log('1-pagebeforecreate');
+    });
+
+    $(document).on('pagecreate',function(){
+        console.log('2-pagecreate');
+    });
+
+    $(document).on('pageinit',function(){
+        console.log('3-pageinit');
+    });
+
+
+    $(document).on('pagebeforehide','#index',function(){
+        console.log('1-pagebeforehide');
+    });
+
+    $(document).on('pagehide','#index',function(){
+        console.log('3-pagehide');
+    });
+
+    $(document).on('pagebeforeshow','#index2',function(){
+        console.log('2-pagebeforeshow');
+    });
+
+    $(document).on('pageshow','#index2',function(){
+        console.log('4-pageshow');
+    });
+</script>
+</html>
