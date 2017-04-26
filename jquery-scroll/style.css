@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+}
+
+.clearfix::after {
+    content: ".";
+    display: block;
+    height: 1px;
+    visibility: hidden;
+    clear: both;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+body {
+    background-color: #ccc;
+}
+
+.scroll-box {
+    width: 540px;
+    margin: 40px auto 0;
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+}
+
+/*标签切换区*/
+.scroll-tab {
+    height: 34px;
+    border-bottom: 1px solid #e5e5e5;
+    color: #666;
+    background-color: #f8f8f8;
+}
+
+.tab-item {
+    float: left;
+    padding: 0 24px;
+    font: 14px/34px "Microsoft Yahei";
+    height: 34px;
+    border-right: 1px solid #e5e5e5;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tab-active {
+    margin: -1px 0;
+    color: #00be3c;
+    border-top: 2px solid #00be3c;
+    background-color: #fff;
+}
+
+.scroll-wrap {
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+.scroll-cont {
+    height: 100%;
+    padding: 0 15px;
+    overflow: hidden;
+    /*  overflow-x: hidden;
+      overflow-y: scroll;*/
+}
+
+.scroll-cont h3 {
+    font: 14px/3 "Microsoft Yahei";
+    text-align: center;
+}
+
+.scroll-cont p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    text-indent: 2em;
+}
+
+.scroll-ol {
+    min-height: 100%;
+}
+
+.scroll-wrap .scroll-bar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 10px;
+    height: 100%;
+    background-color: #e325ea;
+}
+
+.scroll-wrap .scroll-slider {
+    position: absolute;
+    top: 0;
+    left: 1px;
+    width: 8px;
+    height: 30px;
+    background-color: #7bff48;
+}

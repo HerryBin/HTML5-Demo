@@ -3,7 +3,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport"
-          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"/>
+          content="width=device-width,initial-scale=1.0,maximum-scale=1.0,
+          minimum-scale=1.0,user-scalable=no"/>
     <meta name="apple-touch-fullscreen" content="YES"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
     <style>
@@ -29,6 +30,7 @@
             display: -webkit-box;
             -webkit-box-pack: center;
             -webkit-box-align: center;
+            -webkit-backface-visibility: hidden;
             /* display: table-cell;
              vertical-align: middle;*/
         }
@@ -79,14 +81,14 @@
             img: "../img/5.jpg"
         },
         {
-            height: 500,
-            width: 750,
-            img: "../img/6.jpg"
+            /*height: 500,
+            width: 750,*/
+            img: "../img/9.jpg"
         },
         {
-            height: 600,
-            width: 400,
-            img: "../img/7.jpg"
+            /*height: 600,
+         width: 400,*/
+            img: "../img/10.jpg"
         }
     ];
 
@@ -150,7 +152,7 @@
             //兼容chrome android，阻止浏览器默认行为
             evt.preventDefault();
             self.offsetX = evt.touches[0].pageX - self.startX;
-            console.log(self.offsetX);
+            console.log(self.offsetX);-webkit-transform 0s ease-out
 
             //鼠标滑动的时，我们会可能看见 之前 当前 之后 三张图片，因此，改变这三张图片的位移坐标值
             var lis = outer.getElementsByTagName('li'),
@@ -159,7 +161,9 @@
             for (i; i < m; i++) {//从上一张开始变换位移量
                 //sacle 屏幕宽度
                 var transRad = ((i - self.idx) * scale + self.offsetX) + 'px';
+                lis[i] && (lis[i].style.webkitTransition = '-webkit-transform 0s ease-out');
                 lis[i] && (lis[i].style.webkitTransform = 'translate3d(' + transRad + ',0,0)');
+                list[i] && (lis[i].style.webkitTransition=='none');
             }
 
         };
@@ -215,7 +219,7 @@
         }
 
         this.idx=cidx;
-        //改变过渡的方式，从无动画变为有动画
+        //改变过渡的方式，从无动画变为有动画 改变 prev this next 相邻三张图的 位移值
         lis[cidx].style.webkitTransition = '-webkit-transform 0.2s ease-out';
         lis[cidx-1] && (lis[cidx-1].style.webkitTransition = '-webkit-transform 0.2s ease-out');
         lis[cidx+1] && (lis[cidx+1].style.webkitTransition = '-webkit-transform 0.2s ease-out');
