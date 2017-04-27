@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>使用JQuery实现自定义滚动条</title>
+    <script src="index.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="scroll-box">
@@ -34,5 +36,14 @@
         </div>
     </div>
 </div>
+<!--引入jquery-->
+<script src="index.js"></script>
+<script type="text/javascript">
+    new CusScrollBar({
+        contentSelector: '.scroll-cont', //滚动内容区选择器
+        barSelector: '.scroll-bar', //滚动条选择器
+        sliderSelector: '.scroll-slider' //滚动滑块选择器
+    });
+</script>
 </body>
 </html>

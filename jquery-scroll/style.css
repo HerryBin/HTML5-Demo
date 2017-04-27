@@ -62,7 +62,8 @@ body {
     height: 100%;
     padding: 0 15px;
     overflow: hidden;
-    /*  overflow-x: hidden;
+    /*  overflow-x: hidden;  如果仅仅是展示一个scroll，这个样式足够，这里主要
+                             演示 点击不同的tab,显示滚动到对应的内容
       overflow-y: scroll;*/
 }
 
