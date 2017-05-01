@@ -1,0 +1,98 @@
+* {
+    padding: 0;
+    margin: 0;
+    color:#FFF;
+}
+
+body {
+    font-family: Arial, "Microsoft YaHei", sans-serif;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden; /*隐藏滚动条*/
+}
+
+#container, .sections, .section {
+    height: 100%;
+    position: relative; /*重要，否则会导致切换位置不正确*/
+}
+
+#section0,
+#section1,
+#section2,
+#section3 {
+    background-size: cover;
+    background-position: 50% 50%;
+    text-align: center;
+
+}
+
+#section0 {
+    background-color: #713dbe;
+}
+
+#section1 {
+    background-color: #2abe8f;
+}
+
+#section2 {
+    background-color: #be2f86;
+}
+
+#section3 {
+    background-color: #1f1dbe;
+}
+
+h1{
+    font-size: 6em;
+    font-weight: normal;
+}
+
+.title{
+    text-shadow: 5px 5px 1px #4BBEB3;
+}
+
+.left {
+    float: left;
+    width: 25%;
+    /*
+       设置宽度 width:25%; contianer
+    */
+}
+
+.pages li {
+    width: 15px;
+    height:15px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin: 10px 5px;
+}
+
+.pages {
+    position: fixed;
+    list-style: none;
+}
+
+.pages.vertical {
+    top: 50%;
+    right: 10px;
+}
+
+.pages.horizontal {
+    left: 50%;
+    bottom: 10px;
+}
+
+.horizontal.pages li {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.pages li.active {
+    width: 25px;
+    height: 25px;
+    border: 2px solid #FFFE00;
+    background: none;
+    margin-left: 0;
+}
