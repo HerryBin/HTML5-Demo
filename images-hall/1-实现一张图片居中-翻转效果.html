@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>绚丽照片墙</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: #fff;
+            color: #555;
+            font-size: 14px;
+            font-family: '微软雅黑';
+            /*            -webkit-font-smoothing: anti;*/
+        }
+
+        .wrap{
+            width: 100%;
+            height: 500px;
+            position: absolute;
+            top:50%;
+            margin-top: -250px;
+            overflow: hidden;
+            background: #333 url('images/background.jpg');
+
+            perspective: 800px;
+        }
+
+        .photo{
+            width: 260px;
+            height: 320px;
+            position: absolute;
+            z-index: 1;
+            box-shadow: 0 0 1px rgba(0,0,0,0.1);
+            transition: all .6s ease-in-out;  
+        }
+
+        .photo .side{
+            width: 100%;
+            height: 100%;
+            background-color: #eee;
+            position: absolute;
+            top:0;
+            right:0;
+            padding: 20px;
+            box-sizing: border-box;/*重点*/
+
+        }
+
+        .photo .side-front .image{
+            width: 100%;
+            height: 250px;
+            line-height: 250px;
+        }
+
+        .photo .side-front .image img{
+            width: 100%;
+            height: 100%;
+        }
+
+        .photo .side-front .caption{
+            text-align: center;
+            font-size: 16px;
+            line-height: 50px;
+        }
+
+        .side-back .desc{
+            color: #666;
+            font-size:14px;
+            line-height: 1.5;
+            font-weight: 200;
+        }
+
+        .photo-center{
+            left:50% !important;
+            top:50% !important;
+            transform: rotate(0deg) scale(1.5,1.5) !important;
+            z-index:99;
+            margin-top:-160px;
+            margin-left: -130px;
+        }
+
+        .photo .side-front{
+            transform: rotateY(0deg);
+        }
+
+        .photo .side-back{
+            transform: rotateY(180deg);
+        }
+
+        .photo .side{
+            backface-visibility: hidden; /*当元素不面向屏幕时 隐藏*/
+        }
+
+        .photo-wrap{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+
+            transform-style: preserve-3d; /*让元素支持3d效果*/
+            transition:all .6s ease-in-out;
+        }
+
+        .photo_front .photo-wrap{
+            transform: rotateY(0deg);
+        }
+
+        .photo_back .photo-wrap{
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body onselectstart="return false;">
+
+    <div class="wrap">
+        <!--最外层div-->
+        <div class="photo photo-center photo_front" onclick="turn(this)">
+            <!--每个组合div photo 负责平移，旋转 -->
+            <div class="photo-wrap">
+                <!--负责翻转-->
+                <div class="side side-front">
+                    <!--前面图片显示div-->
+                    <p class="image">
+                        <img src="images/1%20超能陆战队.jpg">
+                    </p>
+                    <p class="caption">
+                        超能陆战队
+                    </p>
+                </div>
+                <div class="side side-back">
+                    <!--后背感动文字div-->
+                    <P class='desc'>
+                        ·青春就是再近的距离，也要跑着去。<br>
+                        ·青春是明知道错了，偏要任性到底！<br>
+                        ·青春是纵然梦想很远，踮起脚尖就能更近一些。<br>
+                        ·青春是偏要选择在愚人节告白，就算被拒绝也能笑着说愚人节快乐。<br>
+                        ·青春是有话就不好好说，偏要悄悄说。<br>
+                        ·青春就是爱情友情梦想和热血。因为青春，所以来得及。<br>
+                    </P>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function turn(elem){
+            var selectedClass=elem.className;
+            if(/photo_front/.test(selectedClass)){
+                selectedClass=selectedClass.replace(/photo_front/,'photo_back');
+            }else{
+                selectedClass=selectedClass.replace(/photo_back/,'photo_front');
+            }
+
+            return elem.className=selectedClass;
+        }
+    </script>
+</body>
+</html>
